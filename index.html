@@ -1,357 +1,533 @@
 <!DOCTYPE html>
-<html>
-<title>Software Consultant | Kuee</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style/index.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuee - Software Consulting | Leigh Ciechanowski</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
 
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2563eb;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 0.8s ease-out;
+            letter-spacing: 2px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .section {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #1e293b;
+        }
+
+        .clients {
+            background: #f8fafc;
+        }
+
+        .clients-intro {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #475569;
+            margin-bottom: 3rem;
+        }
+
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .client-logo {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .client-logo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .client-logo img {
+            max-width: 90%;
+            max-height: 90px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .service-card p {
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        .about {
+            background: white;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .company-name {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .skill-tag {
+            padding: 0.75rem 1.5rem;
+            background: #f8fafc;
+            border-radius: 50px;
+            color: #667eea;
+            font-weight: 600;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: white;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: opacity 0.3s;
+        }
+
+        .contact-info a:hover {
+            opacity: 0.8;
+        }
+
+        .footer {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .company-info {
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .company-info p {
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section {
+                padding: 4rem 5%;
+            }
+
+            .clients-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
 <body>
+    <nav class="nav">
+        <div class="logo">KUEE</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#clients">Clients</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-<!-- Navbar (sit on top) -->
-<div class="w3-top">
-  <div class="w3-bar" id="myNavbar">
-    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
-      <i class="fa fa-bars"></i>
-    </a>
-    <a href="#home" class="w3-bar-item w3-button">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
-    <a href="#portfolio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> CLIENTS</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
-    <a href="https://github.com/LeighCiechanowski" target="_blank" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-github"></i> GITHUB</a>
-    <a href="https://www.linkedin.com/in/lciech" target="_blank" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-linkedin"></i> LINKEDIN</a>
-    <!-- <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
-      <i class="fa fa-search"></i>
-    </a> -->
-  </div>
-
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a>
-    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">CLIENTS</a>
-    <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
-    <a href="http://www.github.com/users/lciechanowski" target="_blank" class="w3-bar-item w3-button" onclick="toggleFunction()">GITHUB</a>
-    <a href="http://www.linkedin.com" target="_blank" class="w3-bar-item w3-button" onclick="toggleFunction()">LINKEDIN</a>
-    <!-- <a href="#" class="w3-bar-item w3-button">SEARCH</a> -->
-  </div>
-</div>
-
-<!-- First Parallax Image with Logo Text -->
-<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
-  <div class="w3-display-middle" style="white-space:nowrap;">
-    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">KUEE</span>
-  </div>
-</div>
-
-<!-- Container (About Section) -->
-<div class="w3-content w3-container w3-padding-64" id="about">
-  <h3 class="w3-center">RECOMMENDATIONS</h3>
-  <!-- <p class="w3-center">
-    <em>I love to code, deliver world class projects, and lead teams that do</em>
-  </p> -->
-  <div class="container carousel-container">
-      <div class='row'>
-        <div class='col-md-10'>
-          <div class="carousel slide" data-ride="carousel" id="quote-carousel">
-            <!-- Bottom Carousel Indicators -->
-            <ol class="carousel-indicators">
-              <li data-target="#quote-carousel" data-slide-to="0" class="active"></li>
-              <li data-target="#quote-carousel" data-slide-to="1"></li>
-              <li data-target="#quote-carousel" data-slide-to="2"></li>
-              <li data-target="#quote-carousel" data-slide-to="3"></li>
-              <li data-target="#quote-carousel" data-slide-to="4"></li>
-            </ol>
-            
-            <!-- Carousel Slides / Quotes -->
-            <div class="carousel-inner">
-            
-              <!-- Quote 1 -->
-              <div class="item active">
-                <blockquote>
-                  <div class="row">
-                    <div class="col-sm-3 text-center">
-                      <img class="img-circle" src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/p/6/000/1c2/287/2ea2aa3.jpg" style="width: 100px;height:100px;">
-                    </div>
-                    <div class="col-sm-9">
-                      <p>Leigh is enthusiastic, professional, has great rapport with the team and a much appreciated depth of technical understanding. He asks the right questions, is open minded and is quick to grasp the needs we have of his team when discussing client solutions and our technical strategy as a business. Leigh makes a very strong contribution and will be an great asset to any business he works with.</p>
-                      <small>Simon Mather - Head of Development - Covea Insurance</small>
-                    </div>
-                  </div>
-                </blockquote>
-              </div>
-              <!-- Quote 2 -->
-              <div class="item">
-                <blockquote>
-                  <div class="row">
-                    <div class="col-sm-3 text-center">
-                      <img class="img-circle" src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/AAEAAQAAAAAAAAUyAAAAJDMxOWRiMmFjLWI1YzgtNGIxNC1hYjk2LTM2YzIzMmQyMjQwMA.jpg" style="width: 100px;height:100px;">
-                    </div>
-                    <div class="col-sm-9">
-                      <p>As Head of Development Leigh is super friendly, approachable and keen to nurture the talents of the development team. His upbeat and positive attitude is infectious and creates a productive and collaborative working environment. A pleasure to work with!</p>
-                      <small>Liz Mercuri - Educational Evangelist - Unity Technologies</small>
-                    </div>
-                  </div>
-                </blockquote>
-              </div>
-              <!-- Quote 3 -->
-              <div class="item">
-                <blockquote>
-                  <div class="row">
-                    <div class="col-sm-3 text-center">
-                      <img class="img-circle" src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/AAEAAQAAAAAAAAi7AAAAJDRjNGI3M2FiLTM2ODMtNDI3My1iZTI4LWI4ZGZjZDk3NzAxNA.jpg" style="width: 100px;height:100px;">
-                    </div>
-                    <div class="col-sm-9">
-                      <p>I worked with Leigh on a number of projects as a peer and after his promotion to team lead and he was great to work with. Leigh is not only a great programmer; he also has a good understanding of how to motivate a team, particularly in instilling enthusiasm and a positive and supportive attitude to work.</p>
-                      <small>Steve Melia - Independant Contractor - NHS Digital</small>
-                    </div>
-                  </div>
-                </blockquote>
-              </div>
-                <!-- Quote 4 -->
-                <div class="item">
-                    <blockquote>
-                      <div class="row">
-                        <div class="col-sm-3 text-center">
-                          <img class="img-circle" src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/AAMAAgDuAAgAAQAAAAAAAA8pAAAAJGFhZjNmYTExLWQwZDAtNGY2MS1iNDBjLWZiYjdlM2Q5OTlmZQ.bin" style="width: 100px;height:100px;">
-                        </div>
-                        <div class="col-sm-9">
-                          <p>Working with Leigh is awesome. This guy brings a positive, creative energy to every project. As a technical team lead he facilitated a super effective, agile way of working with us designer types. He’s a snappy dresser too (if that’s important to you).</p>
-                          <small>Steve Molesworth - Head of Design - G2G3 Digital </small>
-                        </div>
-                      </div>
-                    </blockquote>
-                  </div>
-                    <!-- Quote 5 -->
-                <div class="item">
-                    <blockquote>
-                      <div class="row">
-                        <div class="col-sm-3 text-center">
-                          <img class="img-circle" src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/AAEAAQAAAAAAAAlrAAAAJDViODM5NDlmLTVkYjgtNGUwMy1hZmY4LTFjYmM4YTBmNmQ5ZA.jpg" style="width: 100px;height:100px;">
-                        </div>
-                        <div class="col-sm-9">
-                          <p>I've had the pleasure of working with Leigh at G2G3Digital. Leigh stepped up to lead the development team during a time a huge change and challenge. He not only has great technical knowledge and skill but showed great maturity, patience and enthusiasm in taking hold of the team and leading the delivery of some truly market leading programmes.
-                              It's been a privilege to have worked with Leigh and I'd have no hesitation in recommending him to any organisation.</p>
-                          <small>Andrew Moffitt - Group Managing Director - G2G3 Digital</small>
-                        </div>
-                      </div>
-                    </blockquote>
-                  </div>
-            </div>
-            
-            <!-- Carousel Buttons Next/Prev -->
-            <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a>
-            <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
-          </div>                          
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>KUEE</h1>
+            <p class="subtitle">Software Consulting Excellence</p>
+            <p>Led by Leigh Ciechanowski</p>
+            <a href="#contact" class="cta-button">Let's Work Together</a>
         </div>
-      </div>
-    </div>
-    <h3 class="w3-center">TOOLSET</h3>
-  <!-- <p class="w3-large w3-center w3-padding-16">Toolset:</p> -->
+    </section>
 
-  <div class="w3-row-padding w3-center">
-    <div class="w3-col m3">
-      <img src="images/react.png" style="width:100%" class="w3-hover-opacity" alt="React">
-    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo">KUEE</div>
+            <div class="company-info">
+                <p><strong>Kuee Ltd</strong> is a company registered in England and Wales.</p>
+                <p>Company No. 10776042 | VAT No. 282577764</p>
+                <p>&copy; 2025 Kuee Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-    <div class="w3-col m3">
-      <img src="images/netCore.png" style="width:100%" class="w3-hover-opacity" alt=".net Core">
-    </div>
+    <section id="clients" class="section clients">
+        <h2>Trusted by Leading Organizations</h2>
+        <p class="clients-intro">Kuee has delivered exceptional software consulting services to some of the UK's most respected organizations</p>
+        <div class="clients-grid">
+            <div class="client-logo">
+                <img src="https://leighciechanowski.github.io/images/Sky.jpeg" alt="Sky">
+            </div>
+            <div class="client-logo">
+                <img src="https://leighciechanowski.github.io/images/tfl.png" alt="Transport for London">
+            </div>
+            <div class="client-logo">
+                <img src="https://leighciechanowski.github.io/images/gov.jpeg" alt="GOV.UK">
+            </div>
+            <div class="client-logo">
+                <img src="https://leighciechanowski.github.io/images/nhs.jpeg" alt="NHS">
+            </div>
+            <div class="client-logo">
+                <img src="https://leighciechanowski.github.io/images/capita-logo.png" alt="Capita">
+            </div>
+            <div class="client-logo">
+                <img src="https://leighciechanowski.github.io/images/notts-uni.png" alt="University of Nottingham">
+            </div>
+            <div class="client-logo">
+                <img src="https://leighciechanowski.github.io/images/mitsubishi-electric_logo.png" alt="Mitsubishi Electric">
+            </div>
+            <div class="client-logo">
+                <img src="https://leighciechanowski.github.io/images/iron-mountain-box.jpg" alt="Iron Mountain">
+            </div>
+        </div>
+    </section>
 
-    <div class="w3-col m3">
-      <img src="images/sql.jpeg" style="width:100%" class="w3-hover-opacity" alt="SQL Server">
-    </div>
+    <section id="services" class="section">
+        <h2>What Kuee Offers</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">💻</div>
+                <h3>Software Architecture</h3>
+                <p>Kuee designs scalable, maintainable systems that grow with your business. Expert guidance on architecture patterns and best practices.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🚀</div>
+                <h3>Technical Leadership</h3>
+                <p>Strategic technology planning and team mentorship to drive project success and foster engineering excellence across your organization.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>Performance Optimization</h3>
+                <p>Identify bottlenecks and optimize systems for maximum efficiency, scalability, and reliability in production environments.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔧</div>
+                <h3>Code Review & Audit</h3>
+                <p>Comprehensive analysis of your codebase with actionable recommendations for improvement and risk mitigation.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Technology Strategy</h3>
+                <p>Make informed decisions about technology stack, tools, and processes aligned with your business goals and constraints.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛠️</div>
+                <h3>DevOps & CI/CD</h3>
+                <p>Implement robust deployment pipelines and infrastructure automation for faster, safer releases at scale.</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="w3-col m3">
-      <img src="images/docker.png" style="width:100%" class="w3-hover-opacity" alt="DOCKER">
-    </div>
-  </div>
+    <section id="about" class="section about">
+        <h2>About Kuee</h2>
+        <div class="about-content">
+            <p><span class="company-name">Kuee</span> is a software consulting company led by Leigh Ciechanowski, bringing extensive experience in helping organizations build better software.</p>
+            <p>We specialize in turning complex technical challenges into elegant, maintainable solutions. With a proven track record across public and private sectors, <span class="company-name">Kuee</span> delivers results that matter.</p>
+            <p>From government services to major corporations, we work with teams to improve their processes, architecture, and code quality at every level.</p>
+            <div class="skills">
+                <span class="skill-tag">Cloud Architecture</span>
+                <span class="skill-tag">Microservices</span>
+                <span class="skill-tag">API Design</span>
+                <span class="skill-tag">DevOps</span>
+                <span class="skill-tag">Team Leadership</span>
+                <span class="skill-tag">Agile</span>
+                <span class="skill-tag">System Design</span>
+                <span class="skill-tag">Security</span>
+            </div>
+        </div>
+    </section>
 
+    <section id="contact" class="section contact">
+        <h2>Get In Touch with Kuee</h2>
+        <p>Ready to take your software to the next level?</p>
+        <div class="contact-info">
+            <a href="https://github.com/leighciechanowski">GitHub</a>
+            <a href="mailto:lciech@hotmail.co.uk">lciech@hotmail.co.uk</a>
+        </div>
+    </section>
 
- <div class="w3-row-padding w3-center">
-    <div class="w3-col m3">
-      <img src="images/node.png" style="width:100%" class="w3-hover-opacity" alt="node">
-    </div>
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
 
-    <div class="w3-col m3">
-      <img src="images/mongodb-logo.png" style="width:100%" class="w3-hover-opacity" alt="mongo">
-    </div>
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
-    <div class="w3-col m3">
-      <img src="images/kubernetes.png" style="width:100%" class="w3-hover-opacity" alt="Kubernetes">
-    </div>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
 
- 
-  </div>
-</div>
+        document.querySelectorAll('.service-card, .client-logo').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
 
-<div class="w3-row w3-center w3-dark-grey w3-padding-16">
-  <div class="w3-third w3-section">
-    <span class="w3-xlarge">14+</span><br>
-    Years of Experience
-  </div>
-  <div class="w3-third w3-section">
-    <span class="w3-xlarge">100+</span><br>
-    Projects Done
-  </div>
-  <div class="w3-tird w3-section">
-    <span class="w3-xlarge">25+</span><br>
-    Happy Clients
-  </div>
- 
-</div>
+    </script>
 
-<!-- Second Parallax Image with Portfolio Text -->
-<div class="bgimg-2 w3-display-container w3-opacity-min">
-  <div class="w3-display-middle">
-    <span class="w3-xxlarge w3-text-white w3-wide">CLIENTS</span>
-  </div>
-</div>
-
-<!-- Container (Portfolio Section) -->
-<div class="w3-content w3-container w3-padding-64" id="portfolio">
-  <h3 class="w3-center">TRUSTED BY</h3>
-  <br>
-
-  <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
-  <div class="w3-row-padding w3-center">
-    <div class="w3-col m3">
-      <img src="images/Sky.jpeg" style="width:100%" class="w3-hover-opacity" alt="Sky">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="images/tfl.png" style="width:100%" class="w3-hover-opacity" alt="Transport for London">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="images/gov.jpeg" style="width:100%" class="w3-hover-opacity" alt="Gov.uk">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="images/nhs.jpeg" style="width:100%" class="w3-hover-opacity" alt="NHS">
-    </div>
-  </div>
-
-
-  <div class="w3-row-padding w3-center">
-  <div class="w3-col m3">
-      <img src="images/iron-mountain-box.jpg" style="width:100%" class="w3-hover-opacity" alt="Sky">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="images/capita-logo.png" style="width:100%" class="w3-hover-opacity" alt="Transport for London">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="images/notts-uni.png" style="width:100%" class="w3-hover-opacity" alt="Gov.uk">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="images/mitsubishi-electric_logo.png" style="width:100%" class="w3-hover-opacity" alt="NHS">
-    </div>
-</div>
-
-</div>
-
-<!-- Modal for full size images on click-->
-<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
-  <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
-  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
-    <img id="img01" class="w3-image">
-    <p id="caption" class="w3-opacity w3-large"></p>
-  </div>
-</div>
-
-<!-- Third Parallax Image with Portfolio Text -->
-<div class="bgimg-3 w3-display-container w3-opacity-min">
-  <div class="w3-display-middle">
-     <span class="w3-xxlarge w3-text-white w3-wide">CONTACT</span>
-  </div>
-</div>
-
-<!-- Container (Contact Section) -->
-<div class="w3-content w3-container w3-padding-64" id="contact">
-  <h3 class="w3-center">WHERE I WORK</h3>
-  <p class="w3-center"><em>Anywhere in the UK and abroad! I'm currently working on client site based in Leeds, United Kingdom. </em></p>
-  
-  <p class="w3-center">Get in touch with me via <a href="https://www.linkedin.com/in/lciech">LinkedIn</a></p>
-  </div>
-</div>
-
-<!-- Footer -->
-<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
-  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
-  <div class="w3-xlarge w3-section">
-    <!-- <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i> -->
-  </div>
-  <p>Kuee Ltd is a company registered in England and Wales. Company No. 10776042, VAT No. 282577764</p>
-</footer>
- 
-<!-- Add Google Maps -->
-<script>
-
-  $(document).ready(function() {
-  //Set the carousel options
-  $('#quote-carousel').carousel({
-    pause: true,
-    interval: 8000,
-  });
-});
-
-function myMap()
-{
-  myCenter=new google.maps.LatLng(41.878114, -87.629798);
-  var mapOptions= {
-    center:myCenter,
-    zoom:12, scrollwheel: false, draggable: false,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
-
-  var marker = new google.maps.Marker({
-    position: myCenter,
-  });
-  marker.setMap(map);
-}
-
-// Change style of navbar on scroll
-window.onscroll = function() {myFunction()};
-function myFunction() {
-    var navbar = document.getElementById("myNavbar");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
-    } else {
-        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
-    }
-}
-
-// Used to toggle the menu on small screens when clicking on the menu button
-function toggleFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
-<!--
-To use this code on your website, get a free API key from Google.
-Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
--->
-
-
-
-
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo">KUEE</div>
+            <div class="company-info">
+                <p><strong>Kuee Ltd</strong> is a company registered in England and Wales.</p>
+                <p>Company No. 10776042 | VAT No. 282577764</p>
+                <p>&copy; 2025 Kuee Ltd. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
